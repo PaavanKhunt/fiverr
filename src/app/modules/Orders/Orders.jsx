@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { cardData } from '../../../data';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import lodash from 'lodash';
@@ -11,7 +11,6 @@ const styles = {
     borderRadius: '5px',
     marginInline: '1rem',
     paddingTop: '4.5rem',
-    borderRadius: '5px',
     height: '90%',
     gap: '1rem',
   },
@@ -30,9 +29,9 @@ const styles = {
 
 export const Orders = () => {
   const [isToggled, setIsToggled] = useState(false);
-  const toggle = useCallback(() => setIsToggled(!isToggled));
+  const toggle = () => setIsToggled(!isToggled);
   const data = lodash.groupBy(cardData, 'status');
-  console.log(data);
+
   return (
     <div style={styles.container}>
       <div style={styles.category}>
