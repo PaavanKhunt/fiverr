@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { cardData } from '../../../data';
 import { OrderCard } from '../../components/OrderCard/OrderCard';
 import lodash from 'lodash';
@@ -30,13 +30,31 @@ const styles = {
 export const Orders = () => {
   const [isToggled, setIsToggled] = useState(false);
   const toggle = () => setIsToggled(!isToggled);
-  const data = lodash.groupBy(cardData, 'status');
+  const data = lodash.groupBy(cardData, 'currentStatus');
+
+  const newItems = useMemo(() => {
+    return data['New Order'];
+  }, [data]);
+
+  const inProgressItems = useMemo(() => {
+    return data['In Progress'];
+  }, [data]);
+
+  const deliveredItems = useMemo(() => {
+    return data['Delivered'];
+  }, [data]);
+
+  const completedItems = useMemo(() => {
+    return data['Completed'];
+  }, [data]);
+
+  console.log('inProgressItems', inProgressItems);
 
   return (
     <div style={styles.container}>
       <div style={styles.category}>
         <div style={styles.sectionHeader}>NEW ORDERS</div>
-        {data.new.map((item) => (
+        {newItems.map((item) => (
           <OrderCard
             key={item.id}
             props={item}
@@ -47,7 +65,7 @@ export const Orders = () => {
       </div>
       <div style={styles.category}>
         <div style={styles.sectionHeader}>IN PROGRESS</div>
-        {data.progress.map((item) => (
+        {inProgressItems.map((item) => (
           <OrderCard
             key={item.id}
             props={item}
@@ -58,7 +76,7 @@ export const Orders = () => {
       </div>
       <div style={styles.category}>
         <div style={styles.sectionHeader}>WAITING FOR BUYER</div>
-        {data.waiting.map((item) => (
+        {deliveredItems.map((item) => (
           <OrderCard
             key={item.id}
             props={item}
@@ -69,7 +87,7 @@ export const Orders = () => {
       </div>
       <div style={styles.category}>
         <div style={styles.sectionHeader}>COMPLETED</div>
-        {data.completed.map((item) => (
+        {completedItems.map((item) => (
           <OrderCard
             key={item.id}
             props={item}

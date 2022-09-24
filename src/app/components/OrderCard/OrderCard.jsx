@@ -114,15 +114,15 @@ export const OrderCard = ({ props, clicked, toggle }) => {
   const getChipColor = (status) => {
     switch (status) {
       case 'new':
-        return '#FFECD1';
+        return { background: '#FFECD1', color: '#926746' };
       case 'progress':
-        return '#CED8F4';
+        return { background: '#CED8F4', color: '#617093' };
       case 'waiting':
-        return '#F1C9DD';
+        return { background: '#F1C9DD', color: '#8A5970' };
       case 'completed':
-        return '#C5F0DC';
+        return { background: '#C5F0DC', color: '#517262' };
       default:
-        return '#FFECD1';
+        return { background: '#FFECD1', color: '#926746' };
     }
   };
 
@@ -141,7 +141,8 @@ export const OrderCard = ({ props, clicked, toggle }) => {
               <div
                 style={{
                   ...styles.chip,
-                  backgroundColor: getChipColor(props.status),
+                  backgroundColor: getChipColor(props.status).background,
+                  color: getChipColor(props.status).color,
                 }}
               >
                 {props.currentStatus}
