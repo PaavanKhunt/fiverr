@@ -48,8 +48,6 @@ export const Orders = () => {
     return data['Completed'];
   }, [data]);
 
-  console.log('inProgressItems', inProgressItems);
-
   return (
     <div style={styles.container}>
       <div style={styles.category}>
